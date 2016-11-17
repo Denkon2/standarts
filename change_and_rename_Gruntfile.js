@@ -1,15 +1,15 @@
 module.exports = function(grunt) {
 
-    var mobile = true;
+    var mobile = false;
 
     var tablet = false;
 
-    var adaptive = false;    
+    var adaptive = true;
 
 
-    var ft_target = 'src/desktop/';
-    var ft_folder = 'webdone.info/www/standarts/';
-    var ft_host = 'webdone.ftp.ukraine.com.ua';
+    var ft_target = 'dist/';
+    var ft_folder = 'sob/';
+    var ft_host = '31.170.165.196';
     
    
     var dist_valid_array = ['dist/index.php'];  
@@ -481,7 +481,7 @@ module.exports = function(grunt) {
             options: {
                 force: true
             },
-
+            dist: ['dist/**/*'],
             desktop: ['src/desktop/index_fc.html','src/desktop/css/full.css', 'src/desktop/css/bp', 'src/desktop/css/ap', 'src/desktop/js/bp'],
             tablet: ['src/tablet/index_fc.html','src/tablet/css/full.css', 'src/tablet/css/bp', 'src/tablet/css/ap', 'src/tablet/js/bp'],
             mobile: ['src/mobile/index_fc.html','src/mobile/css/full.css', 'src/mobile/css/bp', 'src/mobile/css/ap', 'src/mobile/js/bp']
@@ -514,13 +514,13 @@ module.exports = function(grunt) {
                         pattern: /head.css/ig,
                         replacement: 'head.min.css'
                     }, {
-                        pattern: /..\/mobile/ig,
+                        pattern: /\.\.\/mobile/ig,
                         replacement: 'mobile'
                     }, {
-                        pattern: /..\/tablet/ig,
+                        pattern: /\.\.\/tablet/ig,
                         replacement: 'tablet'
                     }, {
-                        pattern: /..\/track/ig,
+                        pattern: /\.\.\/track/ig,
                         replacement: 'track'
                     }]
                 }
@@ -563,7 +563,7 @@ module.exports = function(grunt) {
             },
             desktop_for_lazyload: {
                 files: {
-                    './': ['dist/index.php', 'dist/js/main.min.js']
+                    './': ['dist/index.php']
                 },
                 options: {
                     replacements: [{
@@ -575,12 +575,20 @@ module.exports = function(grunt) {
                     }, {
                         pattern: /src='img\//ig,
                         replacement: "src='data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACwAAAAAAQABAAACAkQBADs=' data-original='img/"
-                    }, {
+                    }]
+                }
+            },
+            desktop_for_lazyload_js: {
+                files: {
+                    './': ['dist/js/main.min.js']
+                },
+                options: {
+                    replacements: [{
                         pattern: '$(document).ready(',
                         replacement: '$("img").each(function(){var a=$(this).attr("data-original");"undefined"!=typeof a&&a!==!1&&$(this).attr("src",$(this).data("original"))}),$(document).ready('
                     }]
                 }
-            },
+            }, 
             desktop_async_css: {
                 files: {
                     './': ['src/desktop/js/bp/init.js']
@@ -692,7 +700,7 @@ module.exports = function(grunt) {
             },
             tablet_for_lazyload: {
                 files: {
-                    './': ['dist/tablet/index.php', 'dist/tablet/js/main.min.js']
+                    './': ['dist/tablet/index.php']
                 },
                 options: {
                     replacements: [{
@@ -704,12 +712,20 @@ module.exports = function(grunt) {
                     }, {
                         pattern: /src='img\//ig,
                         replacement: "src='data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACwAAAAAAQABAAACAkQBADs=' data-original='img/"
-                    }, {
+                    }]
+                }
+            },
+            tablet_for_lazyload_js: {
+                files: {
+                    './': ['dist/tablet/js/main.min.js']
+                },
+                options: {
+                    replacements: [{
                         pattern: '$(document).ready(',
                         replacement: '$("img").each(function(){var a=$(this).attr("data-original");"undefined"!=typeof a&&a!==!1&&$(this).attr("src",$(this).data("original"))}),$(document).ready('
                     }]
                 }
-            },
+            }, 
             tablet_async_css: {
                 files: {
                     './': ['src/tablet/js/bp/init.js']
@@ -821,7 +837,7 @@ module.exports = function(grunt) {
             },
             mobile_for_lazyload: {
                 files: {
-                    './': ['dist/mobile/index.php', 'dist/mobile/js/main.min.js']
+                    './': ['dist/mobile/index.php']
                 },
                 options: {
                     replacements: [{
@@ -839,6 +855,17 @@ module.exports = function(grunt) {
                     }]
                 }
             },
+            mobile_for_lazyload_js: {
+                files: {
+                    './': ['dist/mobile/js/main.min.js']
+                },
+                options: {
+                    replacements: [{
+                        pattern: '$(document).ready(',
+                        replacement: '$("img").each(function(){var a=$(this).attr("data-original");"undefined"!=typeof a&&a!==!1&&$(this).attr("src",$(this).data("original"))}),$(document).ready('
+                    }]
+                }
+            }, 
             mobile_async_css: {
                 files: {
                     './': ['src/mobile/js/bp/init.js']
@@ -880,6 +907,39 @@ module.exports = function(grunt) {
                     replacements: [{
                         pattern: /<script[^>]*(?:webfont.js|init.js)[^>]*>[^>]*\/script>/ig,
                         replacement: ' '
+                    }]
+                }
+            },
+            desktop_br_space: {
+                files: {
+                    './': ['dist/index.php']
+                },
+                options: {
+                    replacements: [{
+                        pattern: /<br>/ig,
+                        replacement: ' <br>'
+                    }]
+                }
+            },
+            tablet_br_space: {
+                files: {
+                    './': ['dist/tablet/index.php']
+                },
+                options: {
+                    replacements: [{
+                        pattern: /<br>/ig,
+                        replacement: ' <br>'
+                    }]
+                }
+            },
+            mobile_br_space: {
+                files: {
+                    './': ['dist/mobile/index.php']
+                },
+                options: {
+                    replacements: [{
+                        pattern: /<br>/ig,
+                        replacement: ' <br>'
                     }]
                 }
             }
@@ -1297,6 +1357,7 @@ if(!mobile&&!tablet&&adaptive){
         'string-replace:desktop_rebase', //Замена путей к track/ mobile/ tablet/ в dist/ версии desktop
         'inlineImgSize:desktop', //Добавление width и height на img
         'string-replace:desktop_for_lazyload', //замена установка lazy-load закгрузки <img> на dist/index.php
+        'string-replace:desktop_for_lazyload_js',
         'string-replace:desktop_remove_link_css', //удаление link[rel="stylesheet"] из dist/index.php
         'string-replace:desktop_beforebase', //замена путей /img->../img для base64uri маленьких картинок в dist/css/head.min.css
         'dataUri:desktop', //перевод картинок до 2048 байт в base64uri в dist/css/head.min.css, dist/css/full.min.css
@@ -1304,6 +1365,7 @@ if(!mobile&&!tablet&&adaptive){
         'htmlmin:desktop', //сжатие dist/index.php и dist/ajax/map.html
         'unusedimages:desktop', //Удаление неиспользованных картинок из dist/img/
         'copy:track', //Копирование src/track/ в dist/track/
+        'string-replace:desktop_br_space'
     ]);
 
     grunt.registerTask('fin-tablet', [
@@ -1330,12 +1392,14 @@ if(!mobile&&!tablet&&adaptive){
         'string-replace:tablet_rebase',
         'inlineImgSize:tablet', 
         'string-replace:tablet_for_lazyload', 
+        'string-replace:tablet_for_lazyload_js', 
         'string-replace:tablet_remove_link_css', 
         'string-replace:tablet_beforebase',
         'dataUri:tablet',
         'string-replace:tablet_afterbase', 
         'htmlmin:tablet',
-        'unusedimages:tablet', 
+        'unusedimages:tablet',
+        'string-replace:tablet_br_space'
     ]);
 
     grunt.registerTask('fin-mobile', [
@@ -1362,12 +1426,14 @@ if(!mobile&&!tablet&&adaptive){
         'string-replace:mobile_rebase',
         'inlineImgSize:mobile', 
         'string-replace:mobile_for_lazyload', 
+        'string-replace:mobile_for_lazyload_js',
         'string-replace:mobile_remove_link_css', 
         'string-replace:mobile_beforebase',
         'dataUri:mobile',
         'string-replace:mobile_afterbase', 
         'htmlmin:mobile',
-        'unusedimages:mobile', 
+        'unusedimages:mobile',
+        'string-replace:mobile_br_space'
     ]);
 
     grunt.registerTask('check-desktop', [
@@ -1388,23 +1454,23 @@ if(!mobile&&!tablet&&adaptive){
 
 var start_command = ['start-desktop'];
 
-var fin_array = ['start-desktop','fin-desktop'];
+var fin_array = ['clean:dist','start-desktop','fin-desktop'];
 
-var fin_command = ['fin-desktop'];
+//var fin_command = ['fin-desktop'];
 
 var validate_command = ['validation'];
 
 var check_command = ['check-desktop'];
 
 if(tablet) {
-    fin_command.push('fin-tablet');
+    //fin_command.push('fin-tablet');
     start_command.push('start-tablet');
     fin_array.push('start-tablet').push('fin-tablet');
     check_command.push('check-tablet');
 }
 
 if(mobile) {
-    fin_command.push('fin-mobile');
+    //fin_command.push('fin-mobile');
     start_command.push('start-mobile');
     fin_array.push('start-mobile').push('fin-mobile');
     check_command.push('check-mobile');
