@@ -28,6 +28,7 @@ npm install grunt-htmlcomb --save-dev
 npm install grunt-prettify --save-dev
 npm install grunt-sass --save-dev 
 npm install grunt-jsbeautifier --save-dev
+npm install grunt-contrib-csslint --save-dev
 
 
 

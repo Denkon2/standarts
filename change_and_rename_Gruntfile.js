@@ -1,10 +1,10 @@
 module.exports = function(grunt) {
 
-    var mobile = false;
+    var mobile = true;
 
     var tablet = false;
 
-    var adaptive = true;    
+    var adaptive = false;    
 
 
     var ft_target = 'src/desktop/';
@@ -1287,8 +1287,8 @@ if(!mobile&&!tablet&&adaptive){
         'cssmin:desktop', //Сжатие (src/desktop/css/ap/) head.css,full.css в dist/css/*.min.css
         'imagemin:desktop', //Сжатие src/desktop/img/*.* в dist/img/
         'clean:desktop', //Удаление src/desktop/index_fc.html,src/desktop/css/bp,src/desktop/css/ap,src/desktop/js/bp
-        'copy:desktop_fonts', 
-        'copy:desktop_fonts_css',    
+        'copy:desktop_fonts',
+        'copy:desktop_fonts_css',
         'copy:desktop_index', //Копирование src/desktop/*.* в dist/
         'copy:desktop_httaccess', //Копирование src/desktop/.httaccess в dist/
         'copy:desktop_ajax', //Копирование src/desktop/ajax/ в dist/ajax/
